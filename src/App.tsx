@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles/App.css";
+import { TodoInput } from "./components/TodoInput";
+import { TodoContainer } from "./components/TodoContainer";
+import { TodoTask } from "./components/TodoTask";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Task {
+    id: number,
+    description: string,
+    status: boolean
 }
+
+const tasks: Task[] = [
+    { id: 1, description: "First Task", status: true },
+    { id: 2, description: "Second Task", status: false },
+    { id: 3, description: "Third Task", status: false },
+];
+
+const App: React.FC = () => {
+
+  return (
+    <main className="App">
+        <h1>Todo App</h1>
+        <TodoInput />
+        <TodoContainer>
+            { tasks.map(task => <TodoTask key={task.id} content={task.description}/>) }
+        </TodoContainer>
+    </main>
+  );
+};
 
 export default App;

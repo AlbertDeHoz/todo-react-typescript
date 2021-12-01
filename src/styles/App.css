@@ -1,0 +1,24 @@
+.App {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  text-align: center;
+  background: linear-gradient(
+    to top,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+}
+.App h1 {
+  color: var(--white);
+  padding: 20px;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+}
+.App > section {
+  background-color: var(--white);
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+}

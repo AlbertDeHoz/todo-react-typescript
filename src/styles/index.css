@@ -1,0 +1,23 @@
+:root {
+    --font-primary: 'Ubuntu', sans-serif;
+    --color-primary: #c14a8b;
+    --color-secondary: #2b4eac;
+    --white: #fefefe;
+}
+/* https://uicookies.com/wp-content/uploads/2019/02/login-form-v11.jpg */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: 1.6rem;
+}
+
+
