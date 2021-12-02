@@ -2,7 +2,9 @@
     --font-primary: 'Ubuntu', sans-serif;
     --color-primary: #c14a8b;
     --color-secondary: #2b4eac;
+    --soft-grey: #e6e6e6;
     --white: #fefefe;
+    --dark-grey: #0f0f0f;
 }
 /* https://uicookies.com/wp-content/uploads/2019/02/login-form-v11.jpg */
 * {
