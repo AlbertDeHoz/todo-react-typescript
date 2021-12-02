@@ -3,6 +3,7 @@
   min-width: 320px;
   min-height: 100vh;
   text-align: center;
+  padding: 20px 0;
   background: linear-gradient(
     to top,
     var(--color-primary),
@@ -67,6 +68,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
 }
 
 .App button {
@@ -84,4 +88,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 120px;
+  justify-content: space-between;
 }
