@@ -37,14 +37,25 @@
   list-style: none;
 }
 
-.todo-container ul>li {
-  margin: 5px 0;
-  padding: 10px;
+.todo-task {
+  position: relative;
+  display:flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 10px 20px;
   border-radius: 4px;
   text-align: left;
   box-shadow: 0 0 3px rgb(137, 137, 163);
-  position: relative;
 }
+.todo-task__edit {
+  margin-left:32px;
+  padding: 0 5px;
+  border: 1px dashed var(--color-secondary);
+  border-radius: 4px;
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
 .fas {
   cursor: pointer
 }
@@ -70,8 +81,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  min-height: 150px;
 }
+todo-task__edit
 
 .App button {
   width: 150px;
@@ -82,6 +94,7 @@
   background-color: var(--color-primary);
   color: var(--white);
   align-self: center;
+  cursor: pointer
 }
 
 .todo-input form{
@@ -90,4 +103,9 @@
   align-items: center;
   height: 120px;
   justify-content: space-between;
+}
+
+.is-finished {
+  color:#a3a3a3;
+  text-decoration: line-through;
 }
