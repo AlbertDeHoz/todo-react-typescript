@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TodoContext } from '../TodoContext';
+import { Task } from "../interfaces";
 
-const TodoInput: React.FC = () => {
-    const [newTask, setNewTask] = useState<string>("First");
+interface ITodoInput {
+    todo?: Task;
+    onClose: () => void;
+}
 
+const TodoInput = ({ todo, onClose }: ITodoInput) => {
+    const [newTask, setNewTask] = useState<string>(todo?.description ?? "");
+    const { addTodo, editTodo } = useContext(TodoContext);
     const registerTask = (e: React.SyntheticEvent): void => {
-        console.log(newTask);
         e.preventDefault();
+        onClose();
+        if (!newTask) return;
+        if (!todo) {
+            addTodo(newTask);
+            return;
+        }
+        todo.description = newTask;
+        editTodo(todo);
     };
 
     return (
-        <section className="todo-input">
+        <section className="todo-input__modal">
             <form onSubmit={registerTask}>
-                <label htmlFor="task-input" className="task-input">
-                    Type a new Task
+                <label htmlFor="task-input" className="task-input text__subtitle">
+                    {!todo ? "Type a new Task" : "Editing task"}
                 </label>
                 <input
                     type="text"
@@ -22,7 +36,7 @@ const TodoInput: React.FC = () => {
                     value={newTask}
                     onChange={(e) => setNewTask(e.target.value)}
                 />
-                <button>Add Task!</button>
+                <button className="button__primary"> {!todo ? "Add" : "Edit"} </button>
             </form>
         </section>
     );

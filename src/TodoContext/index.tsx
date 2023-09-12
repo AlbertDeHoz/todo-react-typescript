@@ -11,9 +11,13 @@ interface IValue {
     todosRendered: Task[];
     toggleTodoStatus: (id:number) => void;
     removeTodo: (id:number) => void;
+    addTodo: (todoDescription: string) => void;
+    editTodo: (editedTodo: Task) => void;
 
 }
 const DefaultValues:IValue = {
+    addTodo: () => null,
+    editTodo: () => null,
     loading: true,
     totalTodos: 0,
     completedTodos: 0,
@@ -27,7 +31,7 @@ const DefaultValues:IValue = {
 const TodoContext = createContext<IValue>(DefaultValues);
 
 const TodoProvider = ({ children }: any) => {
-    const storage_values = useLocalStorage("TODOS_V1");
+    const storage_values = useLocalStorage();
     const { item: todos, saveItem: saveTodos, loading } = storage_values;
     const [todoSearched, setTodoSearched] = useState<string>("");
     const totalTodos: number = todos.length;
@@ -41,6 +45,16 @@ const TodoProvider = ({ children }: any) => {
         return description.includes(search);
     });
 
+    const addTodo = (todoDescription: string) => {
+        const todo = {
+          id:todos.length,
+          description: todoDescription,
+          status: false
+        };
+        saveTodos([...todos, todo]);
+        
+    }
+
     const searchTodo = (e: React.FormEvent<HTMLInputElement>): void => {
         const { value } = e.target as HTMLInputElement;
         setTodoSearched(value);
@@ -52,6 +66,11 @@ const TodoProvider = ({ children }: any) => {
         saveTodos(todosUpToDate);
     };
 
+    const editTodo = (todoEdited: Task) => {
+        const todoList = todos.map((todo) => todo.id === todoEdited.id ? todoEdited : todo);
+        saveTodos(todoList);
+    }
+
     const removeTodo = (id: number): void => {
         const index: number = todos.findIndex((todo) => todo.id === id);
         const todosUpToDate: Task[] = todos.map((todo) => ({ ...todo }));
@@ -60,6 +79,8 @@ const TodoProvider = ({ children }: any) => {
     };
     return (
         <TodoContext.Provider value={{
+            editTodo,
+            addTodo,
             loading,
             totalTodos,            
             completedTodos,            
@@ -68,7 +89,7 @@ const TodoProvider = ({ children }: any) => {
             todosRendered,            
             toggleTodoStatus,
             removeTodo,
-        }}>,   {children}
+        }}>{children}
         </TodoContext.Provider>
     );
 };

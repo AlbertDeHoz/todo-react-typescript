@@ -18,14 +18,17 @@
 }
 .App > section {
   background-color: var(--white);
+  max-width: 90rem;
   width: 90%;
   margin: 10px auto;
   padding: 10px;
   border-radius: 5px;
 }
 
-.App input {
+input {
   width: 260px;
+  font-family: inherit;
+  color: inherit;
   background-color: var(--soft-grey);
   outline: none;
   border: none;
@@ -76,14 +79,11 @@
 }
 
 .todo-search {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 150px;
 }
-todo-task__edit
 
 .App button {
   width: 150px;
@@ -97,12 +97,50 @@ todo-task__edit
   cursor: pointer
 }
 
-.todo-input form{
+.todo-input__modal {
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  background-color: #000000aa;
+}
+
+.text__subtitle {
+  text-transform: capitalize;
+  padding-block-end: 0.5rem;
+  space-between: .15rem;
+  font-size: 3rem;
+  font-weight: 300;
+
+}
+
+.todo-input__modal form{
+  padding: 1rem;
+  border-radius: .5rem;
+  max-width: 100rem;
+  width: 50vw;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   align-items: center;
-  height: 120px;
   justify-content: space-between;
+}
+
+.button__primary {
+  padding: 1rem;
+  border: none;
+  border-radius: .25rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.button__primary:hover {
+  background-color: #c950a0;
 }
 
 .is-finished {
@@ -115,4 +153,15 @@ todo-task__edit
   font-style: italic;
   text-align: left;
   color:#858585;
+}
+
+.button-add-todo {
+  width: 4rem;
+  aspect-ratio: 1;
+  position: fixed;
+  z-index: 100;
+  bottom: 1rem;
+  right: 1rem;
+  font-size:2rem;
+  color: var(--dark-grey);
 }

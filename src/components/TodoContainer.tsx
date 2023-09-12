@@ -7,9 +7,8 @@ interface Props {
 const TodoContainer: React.FC<Props> = (props) => {
     return (
         <section className="todo-container">
-            {/* <TodoSearch/> */}
-            <h2>List of Task</h2>
-            <p>Hey! You can manage your tasks the way you want or not...</p>
+            <h2 className="text_subtitle">List of Task</h2>
+            <p>Hey! Take a look of your current tasks</p>
             <ul>{props.children}</ul>
         </section>
     );

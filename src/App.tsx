@@ -1,61 +1,46 @@
-import React from "react";
+import { useContext, useState } from "react";
 import "./styles/App.css";
-// import { TodoInput } from "./components/TodoInput";
+import { TodoInput } from "./components/TodoInput";
 import { TodoContainer } from "./components/TodoContainer";
 import { TodoTask } from "./components/TodoTask";
 import { TodoSearch } from "./components/TodoSearch";
-import { TodoProvider, TodoContext } from "./TodoContext";
+import { TodoContext } from "./TodoContext";
+import { ButtonAddTodo } from "./components/ButtonAddTodo";
+import { Task } from "./interfaces";
 
-// const tasks: Task[] = [
-//     { id: 1, description: "First Task", status: true },
-//     { id: 2, description: "Second Task", status: true },
-//     { id: 3, description: "Third Task", status: false },
-//     { id: 4, description: "Four Task", status: true },
-// ];
-//"[{\"id\":1,\"description\":\"First Task\",\"status\":true},{\"id\":2,\"description\":\"Second Task\",\"status\":true},{\"id\":3,\"description\":\"Third Task\",\"status\":false},{\"id\":4,\"description\":\"Four Task\",\"status\":true}]"
-
-const App: React.FC = () => {
+const App = () => {
+    const [openTodoModal, setOpenTodoModal] = useState(false);
+    const handleOpenAddTodo = () => setOpenTodoModal(true);
+    const [currentTodo, setCurrentTodo] = useState<Task | undefined>();
+    const { searchTodo, loading, todosRendered, todoSearched, toggleTodoStatus, removeTodo } = useContext(TodoContext);
     return (
-        <TodoProvider>
+        <>
+            {openTodoModal && <TodoInput todo={currentTodo} onClose={() => setOpenTodoModal(false)} />}
             <main className="App">
                 <h1>Todo App</h1>
-                {/* <p style={{ color: "white" }}>
-                    {completedTodos} of {totalTodos} todos completed
-                </p> */}
-                {/* <TodoInput /> */}
-                <TodoContext.Consumer>
-                    { ({
-                        loading,
-                        totalTodos,            
-                        completedTodos,            
-                        searchTodo,
-                        todoSearched,            
-                        todosRendered,            
-                        toggleTodoStatus,
-                        removeTodo,
-                    }) => (
-                        <React.Fragment>
-                            <TodoSearch handleSearch={searchTodo} search={todoSearched} />
-                            <TodoContainer>
-                                {loading && <p className="warning__loading">Hello</p>}
-                                {todosRendered.map((todo) => (
-                                    <TodoTask
-                                        key={todo.id}
-                                        id={todo.id}
-                                        content={todo.description}
-                                        status={todo.status}
-                                        handleTodoStatus={(id: number) =>
-                                            toggleTodoStatus(id)
-                                        }
-                                        handleTodoRemove={(id: number) => removeTodo(id)}
-                                    />
-                                ))}
-                            </TodoContainer>
-                        </React.Fragment>
-                    )}
-                </TodoContext.Consumer>
+                <TodoSearch handleSearch={searchTodo} search={todoSearched} />
+                <TodoContainer>
+                    {loading && <p className="warning__loading">loading...</p>}
+                    {todosRendered.map((todo) => (
+                        <TodoTask
+                            key={todo.id}
+                            id={todo.id}
+                            content={todo.description}
+                            status={todo.status}
+                            handleTodoStatus={(id: number) =>
+                                toggleTodoStatus(id)
+                            }
+                            handleEditTodo={() => {
+                                setOpenTodoModal(true);
+                                setCurrentTodo(todo);
+                            }}
+                            handleTodoRemove={(id: number) => removeTodo(id)}
+                        />
+                    ))}
+                </TodoContainer>
             </main>
-        </TodoProvider>
+            <ButtonAddTodo handleClick={() => { setCurrentTodo(undefined); handleOpenAddTodo(); }} />
+        </>
     );
 };
 

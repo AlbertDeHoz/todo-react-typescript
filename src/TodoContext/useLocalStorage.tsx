@@ -7,7 +7,8 @@ interface IStorage {
     loading: boolean;
 }
 
-const useLocalStorage = (itemName: string):IStorage => {
+const useLocalStorage = ():IStorage => {
+    const itemName = "TODOS_V1";
     const [loading, setLoading] = useState<boolean>(true);
     const [item, setItem] = useState<Task[]>([]);
 

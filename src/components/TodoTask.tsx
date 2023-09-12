@@ -6,6 +6,7 @@ interface Props {
     status: boolean;
     handleTodoStatus: any;
     handleTodoRemove: any;
+    handleEditTodo: any;
 }
 const TodoTask: React.FC<Props> = (props) => {
     const setFinishedColor = props.status?"is-finished":"";
@@ -21,7 +22,7 @@ const TodoTask: React.FC<Props> = (props) => {
                     {props.content}
                 </span>
                 <span className="fas fa-times-circle" onClick={() => props.handleTodoRemove(props.id)}></span>
-                <span className="todo-task__edit">edit</span>
+                <span className="todo-task__edit" onClick={props.handleEditTodo}>edit</span>
             </li>
         </React.Fragment>
     );
